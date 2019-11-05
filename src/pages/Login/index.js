@@ -18,6 +18,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: 'admin',
       email: "admin@admin.com",
       password: "admin",
       cars: []
@@ -25,26 +26,23 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    // return api
-    //   .get("/api/cars/")
-    //   .then(result => {
-    //     console.log(result);
-    //   })
-    //   .catch(err => {});
+    
   }
 
   efetuarLogin = () => {
     // Alert.alert(this.state.email);
     let data = JSON.stringify({
       password: this.state.password,
-      email: this.state.email
+      email: this.state.email,
+      username: this.state.username,
     });
     console.log(data);
 
     return api
       .post("/api/auth/login/", data, {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+           "X-CSRFToken": "yxXKs8VdYrqhzw4mJSIAAxrYm2KqCFw8f1Wt5U3ayJF0prWR8jlGsPezPfZahUDv"
         }
       })
       .then(result => {

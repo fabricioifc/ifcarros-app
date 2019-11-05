@@ -2,11 +2,11 @@ import axios from "axios";
 import { getToken, logoutLocal } from "./auth";
 
 const api = axios.create({
-  baseURL: "http://192.168.1.107:8000"
+  baseURL: "http://172.19.1.160:8000"
 });
 
 api.interceptors.request.use(async config => {
-  const token = getToken();
+  const token = await getToken();
   console.log(token);
 
   if (token) {
@@ -23,7 +23,7 @@ export const logout = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "Access- Control - Allow - Origin": "http://192.168.1.107:8000"
+        "Access- Control - Allow - Origin": "http://172.19.1.160:8000"
       }
     })
     .then(result => {

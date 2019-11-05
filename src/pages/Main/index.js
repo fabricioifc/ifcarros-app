@@ -11,13 +11,26 @@ import {
 } from "react-native";
 
 import { styles } from "./styles";
-import { isAuthenticated } from "../../services/auth";
-import { logout } from "../../services/api";
+import { isAuthenticated, logoutLocal, getToken, clearAsyncStorage } from "../../services/auth";
+import api, { logout } from "../../services/api";
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
   }
+
+  async componentDidMount() {
+    console.log(await getToken());
+    
+    // clearAsyncStorage()
+    // return api
+    //   .get("/api/cars/")
+    //   .then(result => {
+    //     console.log(result);
+    //   })
+    //   .catch(err => {});
+  }
+
   render() {
     return (
       <ImageBackground
@@ -58,9 +71,20 @@ export default class Main extends Component {
     );
   }
   handleLogout = () => {
-    // Alert.alert(this.state.email);
-    return logout().then(result => {
-      this.props.navigation.navigate("Login");
-    });
+    return api
+      .post("/api/auth/logout/", {
+        // credentials: "same-origin",
+        headers: {
+          Accept: "application/json",
+        }
+      })
+      .then(result => {
+        logoutLocal();
+        this.props.navigation.navigate("Login");
+        // console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 }

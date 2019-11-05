@@ -83,14 +83,16 @@ const AuthNavigation = createStackNavigator(
   }
 );
 
-const SwitchNavigator = createSwitchNavigator(
-  {
-    Auth: AuthNavigation,
-    App: AppDrawerNav
-  },
-  {
-    initialRouteName: isAuthenticated ? "App" : "Auth"
-  }
-);
+const createRootNavigator= () => {
+ return SwitchNavigator = createSwitchNavigator(
+    {
+      Auth: AuthNavigation,
+      App: AppDrawerNav
+    },
+    {
+      initialRouteName: (isAuthenticated() == true ? "App" : "Auth")
+    }
+  )
+}
 
-export const AppContainer = createAppContainer(SwitchNavigator);
+export const AppContainer = createAppContainer(createRootNavigator());
