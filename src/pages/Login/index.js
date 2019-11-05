@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { styles } from "./styles";
 
-import api from "~services/api";
 import { getToken, loginLocal, logoutLocal } from "../../services/auth";
 import axios from "axios";
 import { baseURL, loginFetch } from "../../services/api";
@@ -36,7 +35,7 @@ export default class Login extends Component {
       email: this.state.email,
       username: this.state.username
     });
-    
+
     return fetch(`${baseURL}/auth/login/`, {
       method: "POST",
       headers: {
@@ -52,28 +51,28 @@ export default class Login extends Component {
     })
       .then(response => {
         response.json().then(result => {
-          console.log('====================================');
+          console.log("====================================");
           console.log(result);
-          console.log('====================================');
+          console.log("====================================");
           if (result.token) {
-            loginLocal(result.token)
+            loginLocal(result.token);
             let navigation = this.props.navigation;
-            navigation.navigate("Main");  
+            navigation.navigate("Main");
           } else {
-            Alert.alert('Usuário e/ou Senha Inválido!')
+            Alert.alert("Usuário e/ou Senha Inválido!");
           }
-          
-        })
+        });
+      })
+      .catch(err => {
+        console.log(err);
       })
       .done();
-
   };
 
   efetuarLogout = () => {
     console.log("logout");
-    logoutLocal()
+    logoutLocal();
   };
-  
 
   render() {
     return (

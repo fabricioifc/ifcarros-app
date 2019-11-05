@@ -13,22 +13,23 @@ import { getToken } from "./auth";
 //   "application/x-www-form-urlencoded";
 // axios.defaults.headers.Accept = "application/json";
 
-export const baseURL = "http://172.19.1.160:8000/api"
+// export const baseURL = "http://172.19.1.160:8000/api"
+export const baseURL = "http://192.168.1.107:8000/api";
 
-const api = axios.create({
-  baseURL: "http://172.19.1.160:8000/api/"
-  // baseURL: "http://192.168.1.107:8000/api/"
-});
+// const api = axios.create({
+//   baseURL: "http://172.19.1.160:8000/api/"
+//   // baseURL: "http://192.168.1.107:8000/api/"
+// });
 
-api.interceptors.request.use(async config => {
-  const token = await getToken();
-  console.log(axios.defaults);
+// api.interceptors.request.use(async config => {
+//   const token = await getToken();
+//   console.log(axios.defaults);
 
-  if (token) {
-    console.log(token);
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+//   if (token) {
+//     console.log(token);
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
 
-export default api;
+// export default api;

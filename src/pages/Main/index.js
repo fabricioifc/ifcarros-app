@@ -12,7 +12,7 @@ import {
 
 import { styles } from "./styles";
 import { isAuthenticated, logoutLocal, getToken } from "../../services/auth";
-import api, { logout, baseURL } from "../../services/api";
+import { logout, baseURL } from "../../services/api";
 
 export default class Main extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ export default class Main extends Component {
 
   async componentDidMount() {
     console.log(await getToken());
-    
+
     // clearAsyncStorage()
     // return api
     //   .get("/api/cars/")
@@ -74,12 +74,12 @@ export default class Main extends Component {
     return fetch(`${baseURL}/auth/logout/`, {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        Accept: "application/json"
       }
     }).then(result => {
-      logoutLocal()
-      this.props.navigation.navigate("Login")
-    })
+      logoutLocal();
+      this.props.navigation.navigate("Login");
+    });
     // return api
     //   .post("/api/auth/logout/", {
     //     // credentials: "same-origin",
