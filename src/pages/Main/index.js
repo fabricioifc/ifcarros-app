@@ -11,8 +11,8 @@ import {
 } from "react-native";
 
 import { styles } from "./styles";
-import { isAuthenticated, logoutLocal, getToken, clearAsyncStorage } from "../../services/auth";
-import api, { logout } from "../../services/api";
+import { isAuthenticated, logoutLocal, getToken } from "../../services/auth";
+import api, { logout, baseURL } from "../../services/api";
 
 export default class Main extends Component {
   constructor(props) {
@@ -71,20 +71,29 @@ export default class Main extends Component {
     );
   }
   handleLogout = () => {
-    return api
-      .post("/api/auth/logout/", {
-        // credentials: "same-origin",
-        headers: {
-          Accept: "application/json",
-        }
-      })
-      .then(result => {
-        logoutLocal();
-        this.props.navigation.navigate("Login");
-        // console.log(result);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    return fetch(`${baseURL}/auth/logout/`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      }
+    }).then(result => {
+      logoutLocal()
+      this.props.navigation.navigate("Login")
+    })
+    // return api
+    //   .post("/api/auth/logout/", {
+    //     // credentials: "same-origin",
+    //     headers: {
+    //       Accept: "application/json",
+    //     }
+    //   })
+    //   .then(result => {
+    //     logoutLocal();
+    //     this.props.navigation.navigate("Login");
+    //     // console.log(result);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   };
 }

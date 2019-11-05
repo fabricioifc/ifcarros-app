@@ -1,13 +1,15 @@
 import { AsyncStorage } from "react-native";
 
 export const TOKEN_KEY = "@ifcarros:Token";
+
 export const isAuthenticated = async () => {
-  let token = await AsyncStorage.getItem(TOKEN_KEY) !== null
-  console.log('====================================');
+  const token = await AsyncStorage.getItem(TOKEN_KEY);
   console.log(token);
-  console.log('====================================');
-  return token
-}
+  
+
+  return (token !== null) ? true : false;
+};
+
 export const getToken = () =>  {
   return AsyncStorage.getItem(TOKEN_KEY).then(data => data)
 };
@@ -15,12 +17,12 @@ export const loginLocal = token => {
   AsyncStorage.setItem(TOKEN_KEY, token);
 };
 export const logoutLocal = () => {
-  AsyncStorage.removeItem(TOKEN_KEY);
+  return AsyncStorage.removeItem(TOKEN_KEY);
 };
-export const clearAsyncStorage = async() => {
-  console.log('====================================');
-  console.log('LIMPANDO STORAGE');
-  console.log(await getToken())
-  console.log('====================================');
-  await AsyncStorage.clear();
-}
+// export const clearAsyncStorage = async() => {
+//   console.log('====================================');
+//   console.log('LIMPANDO STORAGE');
+//   console.log(await getToken())
+//   console.log('====================================');
+//   await AsyncStorage.clear();
+// }

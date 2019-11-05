@@ -7,7 +7,7 @@ import { createSwitchNavigator } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { isAuthenticated } from "./services/auth";
+import { isAuthenticated, TOKEN_KEY } from "./services/auth";
 
 import Main from "./pages/Main";
 import Login from "./pages/Login";
@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Logout from "./pages/Logout";
+import { AsyncStorage } from "react-native";
 
 // export const Nav = createAppContainer(createDrawerNavigator({ Main, Logout }));
 
@@ -83,16 +84,19 @@ const AuthNavigation = createStackNavigator(
   }
 );
 
-const createRootNavigator= () => {
+export const createRootNavigator = (signedIn = false) => {
+  console.log('====================================');
+  console.log(signedIn);
+  console.log('====================================');
  return SwitchNavigator = createSwitchNavigator(
     {
       Auth: AuthNavigation,
       App: AppDrawerNav
     },
     {
-      initialRouteName: (isAuthenticated() == true ? "App" : "Auth")
+      initialRouteName: (signedIn == true ? "App" : "Auth")
     }
   )
 }
 
-export const AppContainer = createAppContainer(createRootNavigator());
+// export const AppContainer = createAppContainer(createRootNavigator(isAuthenticated()));

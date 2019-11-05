@@ -13,8 +13,9 @@ import {
 import { styles } from "./styles";
 
 import api from "~services/api";
-import { getToken } from "../../services/auth";
+import { getToken, loginLocal, logoutLocal } from "../../services/auth";
 import axios from "axios";
+import { baseURL, loginFetch } from "../../services/api";
 
 export default class Login extends Component {
   constructor(props) {
@@ -30,44 +31,49 @@ export default class Login extends Component {
   componentDidMount() {}
 
   efetuarLogin = async () => {
-    // Alert.alert(this.state.email);
     let data = JSON.stringify({
       password: this.state.password,
       email: this.state.email,
       username: this.state.username
     });
-    const token = await getToken();
-    console.log(token);
-
-    // fetch("http://192.168.1.107:8000/api/auth/login/", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //     // Authorization: "Bearer " + token
-    //   },
-    //   body: JSON.stringify({
-    //     password: this.state.password,
-    //     email: this.state.email,
-    //     username: this.state.username
-    //   })
-    // })
-    //   .then(response => {
-    //     let result = response.json().then(r => console.log(r));
-    //   })
-    //   .done();
-
-    return api
-      .post("/auth/login/", data, {})
-      .then(result => {
-        console.log(result);
-        console.log(result.token);
-        console.log(result.user);
+    
+    return fetch(`${baseURL}/auth/login/`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+        // Authorization: "Bearer " + token
+      },
+      body: JSON.stringify({
+        password: this.state.password,
+        email: this.state.email,
+        username: this.state.username
       })
-      .catch(err => {
-        console.log(err);
-      });
+    })
+      .then(response => {
+        response.json().then(result => {
+          console.log('====================================');
+          console.log(result);
+          console.log('====================================');
+          if (result.token) {
+            loginLocal(result.token)
+            let navigation = this.props.navigation;
+            navigation.navigate("Main");  
+          } else {
+            Alert.alert('Usuário e/ou Senha Inválido!')
+          }
+          
+        })
+      })
+      .done();
+
   };
+
+  efetuarLogout = () => {
+    console.log("logout");
+    logoutLocal()
+  };
+  
 
   render() {
     return (
@@ -111,6 +117,13 @@ export default class Login extends Component {
           onPress={this.efetuarLogin}
         >
           <Text style={styles.loginText}>Login</Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          style={[styles.buttonContainer, styles.loginButton]}
+          onPress={this.efetuarLogout}
+        >
+          <Text style={styles.loginText}>Logout</Text>
         </TouchableHighlight>
 
         <TouchableHighlight
