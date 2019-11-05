@@ -18,7 +18,8 @@ const TabNavigator = createBottomTabNavigator(
         drawerIcon: ({ tintColor }) => (
           <Ionicons name="md-home" style={{ color: tintColor }} />
         ),
-        drawerLabel: "Home"
+        drawerLabel: "Home",
+        tabBarLabel: "Inicio"
       },
       screen: Main
     },
@@ -26,12 +27,12 @@ const TabNavigator = createBottomTabNavigator(
     Settings
   },
   {
-    // navigationOptions: ({ navigation }) => {
-    //   const { routeName } = navigation.state.routes[navigation.state.index];
-    //   return {
-    //     headerTitle: routeName
-    //   };
-    // }
+    navigationOptions: ({ navigation }) => {
+      const { routeName } = navigation.state.routes[navigation.state.index];
+      return {
+        headerTitle: routeName
+      };
+    }
   }
 );
 

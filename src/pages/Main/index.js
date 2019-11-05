@@ -7,28 +7,19 @@ import {
   StyleSheet,
   Dimensions,
   ImageBackground,
-  StatusBar
+  StatusBar,
+  Alert
 } from "react-native";
 
 import { styles } from "./styles";
-import { isAuthenticated, logoutLocal, getToken } from "../../services/auth";
-import { logout, baseURL } from "../../services/api";
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
   }
 
-  async componentDidMount() {
-    console.log(await getToken());
-
-    // clearAsyncStorage()
-    // return api
-    //   .get("/api/cars/")
-    //   .then(result => {
-    //     console.log(result);
-    //   })
-    //   .catch(err => {});
+  componentDidMount() {
+    Alert.alert("teste");
   }
 
   render() {
@@ -65,35 +56,8 @@ export default class Main extends Component {
           <Text style={[styles.instructions, styles.fileName]}>
             src/pages/Main/index.js
           </Text>
-          <Button title="Logout" onPress={this.handleLogout}></Button>
         </View>
       </ImageBackground>
     );
   }
-  handleLogout = () => {
-    return fetch(`${baseURL}/auth/logout/`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json"
-      }
-    }).then(result => {
-      logoutLocal();
-      this.props.navigation.navigate("Login");
-    });
-    // return api
-    //   .post("/api/auth/logout/", {
-    //     // credentials: "same-origin",
-    //     headers: {
-    //       Accept: "application/json",
-    //     }
-    //   })
-    //   .then(result => {
-    //     logoutLocal();
-    //     this.props.navigation.navigate("Login");
-    //     // console.log(result);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-  };
 }

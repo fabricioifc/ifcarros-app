@@ -14,7 +14,8 @@ import { styles } from "./styles";
 
 import { getToken, loginLocal, logoutLocal } from "../../services/auth";
 import axios from "axios";
-import { baseURL, loginFetch } from "../../services/api";
+import { baseURL } from "../../services/api";
+import { loginService } from "../../services/authentication";
 
 export default class Login extends Component {
   constructor(props) {
@@ -35,43 +36,9 @@ export default class Login extends Component {
       email: this.state.email,
       username: this.state.username
     });
+    let { navigation } = this.props;
 
-    return fetch(`${baseURL}/auth/login/`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-        // Authorization: "Bearer " + token
-      },
-      body: JSON.stringify({
-        password: this.state.password,
-        email: this.state.email,
-        username: this.state.username
-      })
-    })
-      .then(response => {
-        response.json().then(result => {
-          console.log("====================================");
-          console.log(result);
-          console.log("====================================");
-          if (result.token) {
-            loginLocal(result.token);
-            let navigation = this.props.navigation;
-            navigation.navigate("Main");
-          } else {
-            Alert.alert("Usuário e/ou Senha Inválido!");
-          }
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .done();
-  };
-
-  efetuarLogout = () => {
-    console.log("logout");
-    logoutLocal();
+    return loginService(data, navigation);
   };
 
   render() {
@@ -116,13 +83,6 @@ export default class Login extends Component {
           onPress={this.efetuarLogin}
         >
           <Text style={styles.loginText}>Login</Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight
-          style={[styles.buttonContainer, styles.loginButton]}
-          onPress={this.efetuarLogout}
-        >
-          <Text style={styles.loginText}>Logout</Text>
         </TouchableHighlight>
 
         <TouchableHighlight

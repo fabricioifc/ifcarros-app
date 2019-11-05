@@ -1,6 +1,6 @@
 import { createSwitchNavigator } from "react-navigation";
 import AuthNavigator from "./navigation/AuthNavigator";
-import AppDrawerNav from "./navigation/DrawerNavigator";
+import AppNavigator from "./navigation/DrawerNavigator";
 
 // const AppSwitchNav = createSwitchNavigator({
 //   Main: { screen: Main },
@@ -11,7 +11,7 @@ export const createRootNavigator = (signedIn = false) => {
   return (SwitchNavigator = createSwitchNavigator(
     {
       Auth: AuthNavigator,
-      App: AppDrawerNav
+      App: AppNavigator
     },
     {
       initialRouteName: signedIn == true ? "App" : "Auth"
