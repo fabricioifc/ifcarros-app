@@ -13,40 +13,56 @@ import {
 import { styles } from "./styles";
 
 import api from "~services/api";
+import { getToken } from "../../services/auth";
+import axios from "axios";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'admin',
+      username: "admin",
       email: "admin@admin.com",
       password: "admin",
       cars: []
     };
   }
 
-  componentDidMount() {
-    
-  }
+  componentDidMount() {}
 
-  efetuarLogin = () => {
+  efetuarLogin = async () => {
     // Alert.alert(this.state.email);
     let data = JSON.stringify({
       password: this.state.password,
       email: this.state.email,
-      username: this.state.username,
+      username: this.state.username
     });
-    console.log(data);
+    const token = await getToken();
+    console.log(token);
+
+    // fetch("http://192.168.1.107:8000/api/auth/login/", {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //     // Authorization: "Bearer " + token
+    //   },
+    //   body: JSON.stringify({
+    //     password: this.state.password,
+    //     email: this.state.email,
+    //     username: this.state.username
+    //   })
+    // })
+    //   .then(response => {
+    //     let result = response.json().then(r => console.log(r));
+    //   })
+    //   .done();
 
     return api
-      .post("/api/auth/login/", data, {
-        headers: {
-          "Content-Type": "application/json",
-           "X-CSRFToken": "yxXKs8VdYrqhzw4mJSIAAxrYm2KqCFw8f1Wt5U3ayJF0prWR8jlGsPezPfZahUDv"
-        }
-      })
+      .post("/auth/login/", data, {})
       .then(result => {
         console.log(result);
+        console.log(result.token);
+        console.log(result.user);
       })
       .catch(err => {
         console.log(err);
