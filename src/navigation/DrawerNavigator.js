@@ -11,6 +11,7 @@ import StackNavigator from "./StackNavigator";
 import { createStackNavigator } from "react-navigation-stack";
 import { TouchableOpacity } from "react-native";
 import { logoutService } from "../services/authentication";
+import CarList from "../pages/CarList";
 
 const AppDrawerNav = createDrawerNavigator(
   {
@@ -43,6 +44,15 @@ const AppDrawerNav = createDrawerNavigator(
         drawerLabel: "Profile"
       },
       screen: Profile
+    },
+    CarList: {
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <Ionicons name="md-settings" style={{ color: tintColor }} />
+        ),
+        drawerLabel: "Carros"
+      },
+      screen: CarList
     }
   },
   {

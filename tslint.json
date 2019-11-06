@@ -80,7 +80,7 @@
       "check-finally",
       "check-whitespace"
     ],
-    "quotemark": [true, "single", "avoid-escape"],
+    "quotemark": [true, "duble", "avoid-escape"],
     "semicolon": [true, "always", "ignore-interfaces"],
     "variable-name": [true, "allow-leading-underscore", "ban-keywords"],
     "whitespace": [
