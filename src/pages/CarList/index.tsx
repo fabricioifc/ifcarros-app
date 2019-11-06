@@ -4,9 +4,8 @@ import { bindActionCreators, Dispatch } from "redux";
 import { Car } from "../../store/ducks/cars/types";
 import * as CarActions from "../../store/ducks/cars/actions";
 import { ApplicationState } from "../../store";
-import { View, FlatList } from "react-native";
+import { View, FlatList, ActivityIndicator, RefreshControl } from "react-native";
 // import { Container } from "./styles";
-import { Text } from "native-base";
 import { styles } from "./styles";
 import CarItem from "../../components/CarItem";
 
@@ -26,24 +25,37 @@ interface DispatchProps {
 }
 // interface OwnProps {}
 
-type Props = StateProps & DispatchProps & OwnProps;
+type Props = StateProps & DispatchProps;
 
 class CarList extends Component<Props> {
+  state = {
+    isRefreshing: false
+  }
+
   componentDidMount() {
     const { loadRequest } = this.props;
-
     loadRequest();
   }
+
   render() {
-    const { cars } = this.props;
-    console.log(cars);
+    const { loadRequest } = this.props;
+    const { loading, data } = this.props.cars;
     return (
       <View style={styles.container}>
-        <FlatList
-          data={cars.data}
-          renderItem={({ item }) => <CarItem car={item} />}
-          keyExtractor={item => String(item.url)}
-        />
+        {loading ? 
+          <ActivityIndicator size="large" color="#0000ff" style={{ padding: 20 }} /> : 
+          <FlatList
+            data={data}
+            renderItem={({ item }) => <CarItem car={item} />}
+            keyExtractor={item => String(item.url)}
+            refreshControl={
+              <RefreshControl
+                refreshing={loading}
+                onRefresh={() => loadRequest()}
+              />
+            }
+          />}
+        
       </View>
     );
   }

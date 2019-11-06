@@ -23,7 +23,7 @@ class CustomDrawerNavigator extends React.Component {
 
   async componentWillMount() {
     const user = await getProfile();
-    console.log(JSON.parse(user));
+    // console.log(JSON.parse(user));
     this.setState({
       user: JSON.parse(user),
       isLoading: false
@@ -43,14 +43,13 @@ class CustomDrawerNavigator extends React.Component {
 
   render() {
     let { isLoading, user } = this.state;
-    console.log(isLoading, user);
+    // console.log(isLoading, user);
 
     if (isLoading || !user) {
       return null;
     }
     let { name } = this.state.user;
-    let { avatar } = this.state.user.profile;
-    console.log(avatar);
+    let { profile } = this.state.user
 
     return (
       <SafeAreaView style={styles.container}>
@@ -64,7 +63,7 @@ class CustomDrawerNavigator extends React.Component {
           <Image
             style={styles.profileImage}
             source={{
-              uri: avatar
+              uri: profile !== null ? profile.avatar : 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ-rBKSEWCsWiybBcnzPHdw3aJzr93Pchxe97rx4Apzs22LPLXQ'
             }}
           ></Image>
           <Text style={styles.headerText}>{name}</Text>

@@ -13,7 +13,7 @@ export const loginService = async (data, navigation) => {
     body: data
   });
   const result = await response.json();
-  console.log(result);
+  // console.log(result);
 
   if (result.token) {
     let { pk } = result.user;

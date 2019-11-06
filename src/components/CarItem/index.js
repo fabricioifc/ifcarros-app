@@ -9,7 +9,6 @@ interface OwnProps {
 
 export default function CarItem({ car }: OwnProps) {
   const { marca, modelo, ano, descricao, km } = car;
-  console.log(car);
 
   return (
     <View>
