@@ -14,7 +14,6 @@ import { styles } from "./styles";
 
 import { getToken, loginLocal, logoutLocal } from "../../services/auth";
 import axios from "axios";
-import { baseURL } from "../../services/api";
 import { loginService } from "../../services/authentication";
 
 export default class Login extends Component {

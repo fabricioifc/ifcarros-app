@@ -1,18 +1,17 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React, { Component } from "react";
+import { Text, View } from "react-native";
 import "./config/ReactotronConfig";
 import { Provider } from "react-redux";
 import store from "./store";
 import { AppContainer } from "~/routes";
 import { isAuthenticated } from "./services/auth";
-import { createAppContainer } from 'react-navigation';
-import { createRootNavigator } from './routes';
+import { createAppContainer } from "react-navigation";
+import { createRootNavigator } from "./routes";
 
 export default class App extends Component {
-
   state = {
     signed: false,
-    signLoaded: false,
+    signLoaded: false
   };
 
   componentWillMount() {
@@ -35,7 +34,7 @@ export default class App extends Component {
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    )
+    );
   }
 }
 

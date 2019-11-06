@@ -1,9 +1,9 @@
 import { create } from "apisauce";
 import { getToken } from "./auth";
-export const baseURL = "http://192.168.1.107:8000/api";
+import { BASE_URL } from "react-native-dotenv";
 
 const api = create({
-  baseURL: baseURL,
+  baseURL: BASE_URL,
   withCredentials: true
   // headers: {
   //   credentials: "include",
