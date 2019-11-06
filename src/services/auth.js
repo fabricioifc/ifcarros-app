@@ -1,6 +1,7 @@
 import { AsyncStorage } from "react-native";
 
-export const TOKEN_KEY = "@ifcarros:Token";
+const TOKEN_KEY = "@ifcarros:Token";
+const USER_KEY = "@ifcarros:User";
 
 export const isAuthenticated = async () => {
   const token = await AsyncStorage.getItem(TOKEN_KEY);
@@ -12,11 +13,16 @@ export const isAuthenticated = async () => {
 export const getToken = () => {
   return AsyncStorage.getItem(TOKEN_KEY).then(data => data);
 };
-export const loginLocal = token => {
+export const getProfile = () => {
+  return AsyncStorage.getItem(USER_KEY).then(data => data);
+};
+export const loginLocal = (token, user) => {
   AsyncStorage.setItem(TOKEN_KEY, token);
+  AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
 };
 export const logoutLocal = () => {
-  return AsyncStorage.removeItem(TOKEN_KEY);
+  AsyncStorage.removeItem(TOKEN_KEY);
+  AsyncStorage.removeItem(USER_KEY);
 };
 // export const clearAsyncStorage = async() => {
 //   console.log('====================================');

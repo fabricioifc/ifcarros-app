@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import { styles } from "./styles";
+import { getCarList } from "../../services/CarService";
 
 export default class Main extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ export default class Main extends Component {
   }
 
   componentDidMount() {
-    Alert.alert("teste");
+    // Alert.alert("teste");
+    // getCarList();
   }
 
   render() {

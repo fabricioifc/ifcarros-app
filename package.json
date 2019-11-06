@@ -9,6 +9,7 @@
     "react-devtool": "react-devtools"
   },
   "dependencies": {
+    "apisauce": "^1.1.1",
     "axios": "^0.19.0",
     "babel-plugin-root-import": "^6.4.1",
     "expo": "^35.0.0",

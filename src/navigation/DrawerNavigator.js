@@ -64,7 +64,10 @@ const AppDrawerNav = createDrawerNavigator(
         )
       };
     },
-    contentComponent: CustomDrawerNavigator
+    contentComponent: CustomDrawerNavigator,
+    drawerOpenRoute: "DrawerOpen",
+    drawerCloseRoute: "DrawerClose",
+    drawerToggleRoute: "drawerToggle"
   }
 );
 

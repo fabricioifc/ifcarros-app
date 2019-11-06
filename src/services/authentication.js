@@ -1,35 +1,40 @@
 import { loginLocal, logoutLocal } from "./auth";
-import { baseURL } from "./api";
+import api, { baseURL } from "./api";
+import { getUserProfile } from "./UserService";
 
-export const loginService = (data, navigation) => {
-  return fetch(`${baseURL}/auth/login/`, {
+export const loginService = async (data, navigation) => {
+  const response = await fetch(`${baseURL}/auth/login/`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
     },
     body: data
-  })
-    .then(response => {
-      response.json().then(result => {
-        console.log("====================================");
-        console.log(result);
-        console.log("====================================");
-        if (result.token) {
-          loginLocal(result.token);
-          navigation.navigate("Main");
-        } else {
-          //   Alert.alert("Usuário e/ou Senha Inválido!");
-        }
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    .done();
+  });
+  // .then(response => {
+  const result = await response.json();
+  console.log(result);
+
+  if (result.token) {
+    let { pk } = result.user;
+    const user = await getUserProfile(pk);
+    const { data } = user;
+    if (data) {
+      await loginLocal(result.token, data);
+      navigation.navigate("Main");
+    }
+  }
 };
 
 export const logoutService = ({ navigation }) => {
+  // return api
+  //   .post("/auth/logout/", {
+  //     credentials: "include"
+  //   })
+  //   .then(result => {
+  //     logoutLocal();
+  //     navigation.navigate("Login");
+  //   });
   return fetch(`${baseURL}/auth/logout/`, {
     method: "POST",
     headers: {
