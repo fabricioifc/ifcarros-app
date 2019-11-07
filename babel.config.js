@@ -2,9 +2,6 @@ module.exports = {
   env: {
     production: {
       plugins: ["transform-remove-console"]
-    },
-    development: {
-      plugins: ["transform-react-jsx-source"]
     }
   },
   presets: [

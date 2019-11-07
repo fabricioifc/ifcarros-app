@@ -15,7 +15,6 @@ import {
 import { ListItem, SearchBar } from "react-native-elements";
 import { styles } from "./styles";
 import CarItem from "../../components/CarItem";
-import { Avatar } from "react-native-elements";
 
 // const mapStateToProps = (state: ApplicationState) => ({});
 const mapStateToProps = ({ cars }: ApplicationState) => ({
