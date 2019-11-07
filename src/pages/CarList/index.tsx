@@ -4,11 +4,18 @@ import { bindActionCreators, Dispatch } from "redux";
 import { Car } from "../../store/ducks/cars/types";
 import * as CarActions from "../../store/ducks/cars/actions";
 import { ApplicationState } from "../../store";
-import { View, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  SafeAreaView
+} from "react-native";
 // import { Container } from "./styles";
-import { Text } from "native-base";
+import { ListItem, SearchBar } from "react-native-elements";
 import { styles } from "./styles";
 import CarItem from "../../components/CarItem";
+import { Avatar } from "react-native-elements";
 
 // const mapStateToProps = (state: ApplicationState) => ({});
 const mapStateToProps = ({ cars }: ApplicationState) => ({
@@ -24,7 +31,9 @@ interface StateProps {
 interface DispatchProps {
   loadRequest(): void;
 }
-// interface OwnProps {}
+interface OwnProps {
+  car: Car;
+}
 
 type Props = StateProps & DispatchProps & OwnProps;
 
@@ -36,17 +45,60 @@ class CarList extends Component<Props> {
   }
   render() {
     const { cars } = this.props;
-    console.log(cars);
+    const { data } = cars;
+    console.log(data);
     return (
-      <View style={styles.container}>
+      <SafeAreaView>
         <FlatList
-          data={cars.data}
-          renderItem={({ item }) => <CarItem car={item} />}
-          keyExtractor={item => String(item.url)}
+          data={data}
+          renderItem={({ item }) => (
+            <ListItem
+              title={`${item.marca} ${item.modelo}`}
+              subtitle={item.descricao}
+              containerStyle={{ borderBottomWidth: 0 }}
+            />
+          )}
+          keyExtractor={item => item.url}
+          ItemSeparatorComponent={this.renderSeparator}
+          ListHeaderComponent={this.renderHeader}
+          ListFooterComponent={this.renderFooter}
         />
-      </View>
+      </SafeAreaView>
     );
   }
+
+  renderFooter = () => {
+    if (!this.props.cars.loading) return null;
+
+    return (
+      <View
+        style={{
+          paddingVertical: 20,
+          borderTopWidth: 1,
+          borderColor: "#CED0CE"
+        }}
+      >
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
+  };
+
+  renderHeader = () => {
+    return <SearchBar placeholder="Type Here..." lightTheme round />;
+  };
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "86%",
+          backgroundColor: "#CED0CE",
+          marginLeft: "14%"
+        }}
+      />
+    );
+  };
 
   ListViewItemSeparator = () => {
     return (
