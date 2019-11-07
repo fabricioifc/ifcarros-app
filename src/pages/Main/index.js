@@ -11,7 +11,7 @@ import {
   Alert
 } from "react-native";
 
-import { styles } from "./styles";
+import styles from "./styles";
 import { getCarList } from "../../services/CarService";
 
 export default class Main extends Component {
@@ -34,7 +34,7 @@ export default class Main extends Component {
         style={styles.container}
         resizeMode="cover"
       >
-        <View>
+        <View style={styles.container}>
           <StatusBar
             barStyle="light-content"
             hidden={false}

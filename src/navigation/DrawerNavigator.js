@@ -16,15 +16,6 @@ import CarList from "../pages/CarList";
 const AppDrawerNav = createDrawerNavigator(
   {
     // StackNavigator: StackNavigator,
-    CarList: {
-      navigationOptions: {
-        drawerIcon: ({ tintColor }) => (
-          <Ionicons name="md-settings" style={{ color: tintColor }} />
-        ),
-        drawerLabel: "Carros"
-      },
-      screen: CarList
-    },
     Main: {
       navigationOptions: {
         drawerIcon: ({ tintColor }) => (
@@ -53,6 +44,15 @@ const AppDrawerNav = createDrawerNavigator(
         drawerLabel: "Profile"
       },
       screen: Profile
+    },
+    CarList: {
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <Ionicons name="md-settings" style={{ color: tintColor }} />
+        ),
+        drawerLabel: "Carros"
+      },
+      screen: CarList
     },
    
   },
