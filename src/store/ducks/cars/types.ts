@@ -1,7 +1,8 @@
 export enum CarTypes {
   LOAD_REQUEST = "@cars/LOAD_REQUEST",
   LOAD_SUCCESS = "@cars/LOAD_SUCCESS",
-  LOAD_FAILURE = "@cars/LOAD_FAILURE"
+  LOAD_FAILURE = "@cars/LOAD_FAILURE",
+  UPDATE_FILTER =  "@cars/UPDATE_FILTER",
 }
 
 export interface Car {
@@ -11,10 +12,12 @@ export interface Car {
   ano: number;
   km: number;
   descricao: string;
+  imagem: string;
 }
 
 export interface CarState {
   readonly data: Car[];
   readonly loading: boolean;
   readonly error: boolean;
+  dataFilter: Car[];
 }

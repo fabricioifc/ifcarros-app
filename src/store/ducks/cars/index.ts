@@ -13,7 +13,8 @@ const INITIAL_STATE: CarState = {
     // }
   ],
   error: false,
-  loading: false
+  loading: false,
+  dataFilter: []
 };
 
 const reducer: Reducer<CarState> = (state = INITIAL_STATE, action) => {
@@ -25,10 +26,13 @@ const reducer: Reducer<CarState> = (state = INITIAL_STATE, action) => {
         ...state,
         loading: false,
         error: false,
-        data: action.payload.data
+        data: action.payload.data,
+        dataFilter: action.payload.data
       };
     case CarTypes.LOAD_FAILURE:
       return { ...state, loading: false, error: true, data: [] };
+    case CarTypes.UPDATE_FILTER:
+      return { ...state, loading: false, error: false, dataFilter: action.payload.data}
     default:
       return state;
   }
