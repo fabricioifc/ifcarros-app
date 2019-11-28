@@ -16,11 +16,13 @@ export const loginService = async (data, navigation) => {
   // console.log(result);
 
   if (result.token) {
+    await loginLocal(result.token);
+
     let { pk } = result.user;
     const user = await getUserProfile(pk);
     const { data } = user;
     if (data) {
-      await loginLocal(result.token, data);
+      await setProfile(data);
       navigation.navigate("Main");
     }
   }

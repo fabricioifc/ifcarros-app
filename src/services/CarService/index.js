@@ -4,6 +4,7 @@ export const getCarList = async () => {
   try {
     const response = await api.get("/cars/");
     console.log(response.data);
+    return response
 
     // const { projects } = response.data;
 

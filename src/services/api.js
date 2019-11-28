@@ -4,19 +4,19 @@ import { BASE_URL } from "react-native-dotenv";
 
 const api = create({
   baseURL: BASE_URL,
-  withCredentials: true
-  // headers: {
-  //   credentials: "include",
+  // withCredentials: true,
+  headers: {
+    credentials: "include",
   //   xsrfHeaderName: "X-CSRFTOKEN",
   //   xsrfCookieName: "XCSRF-TOKEN"
-  // }
+  }
 });
 
 api.addAsyncRequestTransform(request => async () => {
   // const token = await AsyncStorage.getItem("@CodeApi:token");
   const token = await getToken();
   // request.headers["X-CSRFToken"] =
-  //   "m8CQxGwL26RoTpMN7Ga7yyni48KBGeYHwHxBr8R9vnPoTypI7YjpJh1atvRuDCrs";
+  //   "n3OROeRdTD94N9kTuyziLUxmnWEvujUYxtJsZokEulHjeSVjhdUTx8ljjpvDvZK9";
 
   if (token) request.headers["Authorization"] = `Bearer ${token}`;
 });

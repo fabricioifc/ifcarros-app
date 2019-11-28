@@ -16,9 +16,11 @@ export const getToken = () => {
 export const getProfile = () => {
   return AsyncStorage.getItem(USER_KEY).then(data => data);
 };
-export const loginLocal = (token, user) => {
-  AsyncStorage.setItem(TOKEN_KEY, token);
+export const setProfile = (user) => {
   AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+}
+export const loginLocal = (token) => {
+  AsyncStorage.setItem(TOKEN_KEY, token);
 };
 export const logoutLocal = () => {
   AsyncStorage.removeItem(TOKEN_KEY);
